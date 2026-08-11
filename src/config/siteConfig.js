@@ -13,8 +13,10 @@ export const siteConfig = {
   
   // Analytics and Verification Keys
   googleAnalyticsId: "G-XXXXXXXXXX",
-  googleSearchConsoleToken: "google-site-verification-placeholder-code",
-  googleAdSensePublisherId: "pub-XXXXXXXXXXXXXXXX",
+  googleSearchConsoleToken: "-nL85juUcE0o48CM-D_4I4YDGWaBoP1PN6BFCYSphl0",
+  googleSearchConsoleTokenSecondary: "0KMGLLs9N37APBf9DhUn8bNcnmUmewhwRCHE-R7slxk",
+  googleAdSenseAccount: "ca-pub-6751037211810646",
+  googleAdSensePublisherId: "ca-pub-6751037211810646",
   
   // Financial & Donation Configs
   minWithdrawal: 500, // in Indian Rupees (₹)
@@ -31,21 +33,21 @@ export const siteConfig = {
     {
       id: "vip_adfree",
       name: "VIP Ad-Free Member",
-      price: 299, // ₹ per month
+      price: 299,
       period: "Monthly",
       features: ["100% Ad-Free Experience", "2x Ad-Watching Reward (₹5.00/ad)", "Unlimited Utility Tools Usage", "Priority 24/7 Support"]
     },
     {
       id: "data_pro",
       name: "Data Trader Pro",
-      price: 499, // ₹ per month
+      price: 499,
       period: "Monthly",
       features: ["2x Bandwidth Payout Rate (₹0.20/MB)", "High-Speed Proxy Node Priority", "100% Ad-Free Experience", "Instant 5-Min UPI Withdrawals"]
     },
     {
       id: "enterprise_unlimited",
       name: "Enterprise Unlimited Supporter",
-      price: 999, // ₹ per month
+      price: 999,
       period: "Quarterly",
       features: ["All VIP & Data Pro Perks", "Zero Platform Commission", "Custom API Access for Data Selling", "Official Contributor Badge"]
     }

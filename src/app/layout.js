@@ -55,20 +55,25 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const gscCode = siteConfig.googleSearchConsoleToken;
+  const gscCode1 = siteConfig.googleSearchConsoleToken; // -nL85juUcE0o48CM-D_4I4YDGWaBoP1PN6BFCYSphl0
+  const gscCode2 = siteConfig.googleSearchConsoleTokenSecondary; // 0KMGLLs9N37APBf9DhUn8bNcnmUmewhwRCHE-R7slxk
+  const adsenseAccount = siteConfig.googleAdSenseAccount; // ca-pub-6751037211810646
+  const adsenseId = siteConfig.googleAdSensePublisherId; // ca-pub-6751037211810646
   const gaId = siteConfig.googleAnalyticsId;
-  const adsenseId = siteConfig.googleAdSensePublisherId;
 
-  const isRealAdsense = adsenseId && !adsenseId.includes("pub-XXXXXXXXXXXXXXXX");
   const isRealGa = gaId && !gaId.includes("G-XXXXXXXXXX");
 
   return (
     <html lang="en">
       <head>
-        {/* Google Search Console Verification */}
-        <meta name="google-site-verification" content={gscCode} />
+        {/* Google AdSense Ownership Account Meta Tag */}
+        <meta name="google-adsense-account" content={adsenseAccount} />
+
+        {/* Google Search Console Verification Meta Tags */}
+        <meta name="google-site-verification" content={gscCode1} />
+        <meta name="google-site-verification" content={gscCode2} />
         
-        {/* Google AdSense Script (Automatic connection in head) */}
+        {/* Google AdSense Direct Client Script Tag */}
         <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}

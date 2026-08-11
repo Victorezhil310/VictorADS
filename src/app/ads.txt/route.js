@@ -1,10 +1,7 @@
 import { siteConfig } from '../../config/siteConfig';
 
 export async function GET() {
-  const content = `# Google AdSense Authorized Digital Sellers
-# Generated dynamically by VictorADS config
-google.com, ${siteConfig.googleAdSensePublisherId}, DIRECT, f08c47fec0942fa0
-`;
+  const content = `google.com, pub-6751037211810646, DIRECT, f08c47fec0942fa0\n`;
 
   return new Response(content, {
     headers: {
