@@ -9,6 +9,9 @@ export default async function sitemap() {
   const staticRoutes = [
     "",
     "/articles",
+    "/subscriptions",
+    "/donate",
+    "/marketplace",
     "/about",
     "/contact",
     "/privacy",
@@ -19,13 +22,13 @@ export default async function sitemap() {
     url: `${baseUrl}${route}`,
     lastModified: currentDate,
     changeFrequency: route === "" ? "daily" : "monthly",
-    priority: route === "" ? 1.0 : route === "/articles" ? 0.8 : 0.5,
+    priority: route === "" ? 1.0 : route === "/subscriptions" || route === "/donate" ? 0.9 : 0.6,
   }));
 
   // Dynamic articles routes
   const articleRoutes = articles.map((art) => ({
     url: `${baseUrl}/articles/${art.slug}`,
-    lastModified: currentDate, // Map actual published date or compile date
+    lastModified: currentDate,
     changeFrequency: "weekly",
     priority: 0.7,
   }));

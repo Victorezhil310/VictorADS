@@ -21,7 +21,6 @@ export default function DashboardLayout({ children }) {
     }
   }, [router]);
 
-  // Keep user stats refreshed
   useEffect(() => {
     if (!user) return;
     const interval = setInterval(() => {
@@ -76,11 +75,16 @@ export default function DashboardLayout({ children }) {
         padding: '30px 20px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '30px'
+        gap: '25px'
       }}>
         {/* User Card */}
         <div className="glass-card" style={{ padding: '15px 20px', borderRadius: '12px' }}>
-          <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Welcome back,</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Welcome back,</p>
+            <span className="badge badge-tech" style={{ fontSize: '0.6rem', padding: '2px 6px' }}>
+              {user.subscriptionPlan || 'Free Tier'}
+            </span>
+          </div>
           <h4 style={{ color: 'var(--color-primary)', fontSize: '1.1rem', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {user.username}
           </h4>
@@ -107,6 +111,21 @@ export default function DashboardLayout({ children }) {
             transition: 'all 0.2s ease'
           }}>
             Earning Station
+          </Link>
+
+          <Link href="/marketplace" className="sidebar-link" style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            fontSize: '0.95rem',
+            fontWeight: '500',
+            background: pathname === '/marketplace' ? 'rgba(0, 242, 254, 0.1)' : 'transparent',
+            color: pathname === '/marketplace' ? 'var(--color-primary)' : 'var(--text-muted)',
+            borderLeft: pathname === '/marketplace' ? '3px solid var(--color-primary)' : '3px solid transparent',
+            transition: 'all 0.2s ease'
+          }}>
+            Data Marketplace
           </Link>
 
           <Link href="/tools" className="sidebar-link" style={{
@@ -143,7 +162,7 @@ export default function DashboardLayout({ children }) {
         {/* Notice Info */}
         <div style={{ marginTop: 'auto', fontSize: '0.75rem', color: 'var(--text-dark)', lineHeight: '1.4' }}>
           <p>🔒 256-Bit SSL Encrypted Sessions</p>
-          <p style={{ marginTop: '5px' }}>📈 Earn rate is based on advertiser auctions.</p>
+          <p style={{ marginTop: '5px' }}>📈 10% Platform survival fee applied to data trades.</p>
         </div>
       </aside>
 

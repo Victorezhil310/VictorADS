@@ -10,7 +10,6 @@ export default function Header() {
   const router = useRouter();
   const [user, setUser] = useState(null);
 
-  // Sync auth state
   useEffect(() => {
     const checkUser = () => {
       const currentUser = mockDB.getCurrentUser();
@@ -18,7 +17,6 @@ export default function Header() {
     };
 
     checkUser();
-    // Periodically poll local storage or capture changes
     const interval = setInterval(checkUser, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -51,11 +49,14 @@ export default function Header() {
         <Link href="/articles" className={`nav-link ${pathname.startsWith('/articles') ? 'active' : ''}`}>
           Articles
         </Link>
+        <Link href="/subscriptions" className={`nav-link ${pathname === '/subscriptions' ? 'active' : ''}`}>
+          VIP Plans
+        </Link>
+        <Link href="/donate" className={`nav-link ${pathname === '/donate' ? 'active' : ''}`}>
+          ❤️ Donate
+        </Link>
         <Link href="/about" className={`nav-link ${pathname === '/about' ? 'active' : ''}`}>
           About
-        </Link>
-        <Link href="/contact" className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}>
-          Contact
         </Link>
 
         {user ? (
@@ -78,11 +79,6 @@ export default function Header() {
           </>
         )}
       </nav>
-
-      {/* Mobile Indicator */}
-      <div style={{ display: 'none' }} className="mobile-menu-btn">
-        <span></span>
-      </div>
     </header>
   );
 }

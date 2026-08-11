@@ -1,9 +1,9 @@
-// Site-wide configuration for SEO, analytics, and ads
+// Site-wide configuration for SEO, analytics, ads, and donations
 export const siteConfig = {
   name: "VictorADS",
   title: "VictorADS | Share Bandwidth, Watch Ads & Earn Money Online",
   description: "VictorADS is a secure digital rewards platform where you can convert your excess internet data and ad views into passive income. Explore our tools and articles on digital economy.",
-  url: "https://victorads.com", // Replace with your actual domain when deployed
+  url: "https://victorads.com",
   author: "VictorADS Team",
   contactEmail: "support@victorads.com",
   
@@ -11,13 +11,43 @@ export const siteConfig = {
   ogImage: "/images/og-image.png",
   twitterHandle: "@VictorADS_Earn",
   
-  // Analytics and Verification Keys (Placeholders - update with real ones when ready)
-  googleAnalyticsId: "G-XXXXXXXXXX", // GA4 Measurement ID
-  googleSearchConsoleToken: "google-site-verification-placeholder-code", // GSC verification code
-  googleAdSensePublisherId: "pub-XXXXXXXXXXXXXXXX", // AdSense publisher ID (e.g. ca-pub-1234567890123456)
+  // Analytics and Verification Keys
+  googleAnalyticsId: "G-XXXXXXXXXX",
+  googleSearchConsoleToken: "google-site-verification-placeholder-code",
+  googleAdSensePublisherId: "pub-XXXXXXXXXXXXXXXX",
   
-  // App-specific configs
+  // Financial & Donation Configs
   minWithdrawal: 500, // in Indian Rupees (₹)
   adRewardAmount: 2.50, // ₹ per ad watch
   dataRewardPerMB: 0.10, // ₹ per MB of simulated data shared
+  platformCommissionPercent: 10, // 10% platform survival fee on marketplace trades
+  
+  // Official Donation UPI Configuration
+  donationUpiId: "arasu9629hf@gmail.com",
+  donationUpiName: "VictorADS Legal Platform Support",
+
+  // Subscription Tiers
+  subscriptionPlans: [
+    {
+      id: "vip_adfree",
+      name: "VIP Ad-Free Member",
+      price: 299, // ₹ per month
+      period: "Monthly",
+      features: ["100% Ad-Free Experience", "2x Ad-Watching Reward (₹5.00/ad)", "Unlimited Utility Tools Usage", "Priority 24/7 Support"]
+    },
+    {
+      id: "data_pro",
+      name: "Data Trader Pro",
+      price: 499, // ₹ per month
+      period: "Monthly",
+      features: ["2x Bandwidth Payout Rate (₹0.20/MB)", "High-Speed Proxy Node Priority", "100% Ad-Free Experience", "Instant 5-Min UPI Withdrawals"]
+    },
+    {
+      id: "enterprise_unlimited",
+      name: "Enterprise Unlimited Supporter",
+      price: 999, // ₹ per month
+      period: "Quarterly",
+      features: ["All VIP & Data Pro Perks", "Zero Platform Commission", "Custom API Access for Data Selling", "Official Contributor Badge"]
+    }
+  ]
 };
