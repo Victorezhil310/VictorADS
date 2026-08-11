@@ -1,0 +1,88 @@
+"use client";
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { mockDB } from '../utils/mockDB';
+
+export default function Header() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+
+  // Sync auth state
+  useEffect(() => {
+    const checkUser = () => {
+      const currentUser = mockDB.getCurrentUser();
+      setUser(currentUser);
+    };
+
+    checkUser();
+    // Periodically poll local storage or capture changes
+    const interval = setInterval(checkUser, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleLogout = () => {
+    mockDB.logout();
+    setUser(null);
+    router.push('/');
+  };
+
+  return (
+    <header className="main-header">
+      <Link href="/" className="header-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 5px var(--color-primary))' }}>
+          <path d="M12 2L2 22h20L12 2z" fill="url(#logo-grad)" />
+          <defs>
+            <linearGradient id="logo-grad" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#00f2fe" />
+              <stop offset="1" stopColor="#4facfe" />
+            </linearGradient>
+          </defs>
+        </svg>
+        VictorADS
+      </Link>
+
+      <nav className="header-nav">
+        <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
+          Home
+        </Link>
+        <Link href="/articles" className={`nav-link ${pathname.startsWith('/articles') ? 'active' : ''}`}>
+          Articles
+        </Link>
+        <Link href="/about" className={`nav-link ${pathname === '/about' ? 'active' : ''}`}>
+          About
+        </Link>
+        <Link href="/contact" className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}>
+          Contact
+        </Link>
+
+        {user ? (
+          <>
+            <Link href="/dashboard" className="btn btn-secondary" style={{ padding: '8px 20px', fontSize: '0.9rem' }}>
+              Dashboard
+            </Link>
+            <button onClick={handleLogout} className="btn btn-primary" style={{ padding: '8px 20px', fontSize: '0.9rem' }}>
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link href="/login" className="nav-link">
+              Sign In
+            </Link>
+            <Link href="/register" className="btn btn-primary" style={{ padding: '8px 20px', fontSize: '0.9rem' }}>
+              Get Started
+            </Link>
+          </>
+        )}
+      </nav>
+
+      {/* Mobile Indicator */}
+      <div style={{ display: 'none' }} className="mobile-menu-btn">
+        <span></span>
+      </div>
+    </header>
+  );
+}

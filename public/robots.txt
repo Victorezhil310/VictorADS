@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Allow: /articles
+Allow: /about
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+Allow: /cookies
+Allow: /disclaimer
+Disallow: /dashboard
+Disallow: /withdraw
+Disallow: /tools
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://victorads.com/sitemap.xml
