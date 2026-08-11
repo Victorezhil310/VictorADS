@@ -3,7 +3,7 @@ export const siteConfig = {
   name: "VictorADS",
   title: "VictorADS | Share Bandwidth, Watch Ads & Earn Money Online",
   description: "VictorADS is a secure digital rewards platform where you can convert your excess internet data and ad views into passive income. Explore our tools and articles on digital economy.",
-  url: "https://victorads.com",
+  url: "https://victor-ads.vercel.app", // Updated to your live Vercel domain!
   author: "VictorADS Team",
   contactEmail: "support@victorads.com",
   
@@ -11,7 +11,7 @@ export const siteConfig = {
   ogImage: "/images/og-image.png",
   twitterHandle: "@VictorADS_Earn",
   
-  // Analytics and Verification Keys (UPDATED REAL PUBLISHER & VERIFICATION CODES)
+  // Analytics and Verification Keys
   googleAnalyticsId: "G-XXXXXXXXXX",
   googleSearchConsoleToken: "PhqDCraPVcuNOgwktVSw2azc0jZV8jK2I4HSxFUygCE",
   googleSearchConsoleTokenSecondary: "uBcYkVShNH4xBS6Vhbt-F3dVAKaKWceQNek2H_dFrjs",

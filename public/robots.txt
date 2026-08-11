@@ -13,4 +13,4 @@ Disallow: /tools
 Disallow: /login
 Disallow: /register
 
-Sitemap: https://victorads.com/sitemap.xml
+Sitemap: https://victor-ads.vercel.app/sitemap.xml
