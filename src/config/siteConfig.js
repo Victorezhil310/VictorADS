@@ -3,7 +3,7 @@ export const siteConfig = {
   name: "VictorADS",
   title: "VictorADS | Share Bandwidth, Watch Ads & Earn Money Online",
   description: "VictorADS is a secure digital rewards platform where you can convert your excess internet data and ad views into passive income. Explore our tools and articles on digital economy.",
-  url: "https://victor-ads.vercel.app", // Updated to your live Vercel domain!
+  url: "https://victor-ads.vercel.app",
   author: "VictorADS Team",
   contactEmail: "support@victorads.com",
   
@@ -24,8 +24,8 @@ export const siteConfig = {
   dataRewardPerMB: 0.10, // ₹ per MB of simulated data shared
   platformCommissionPercent: 10, // 10% platform survival fee on marketplace trades
   
-  // Official Donation UPI Configuration
-  donationUpiId: "arasu9629hf@gmail.com",
+  // Official Donation UPI Configuration (UPDATED TO arasu9629hf@okhdfcbank)
+  donationUpiId: "arasu9629hf@okhdfcbank",
   donationUpiName: "VictorADS Legal Platform Support",
 
   // Subscription Tiers
