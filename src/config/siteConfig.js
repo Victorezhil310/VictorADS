@@ -11,12 +11,12 @@ export const siteConfig = {
   ogImage: "/images/og-image.png",
   twitterHandle: "@VictorADS_Earn",
   
-  // Analytics and Verification Keys
+  // Analytics and Verification Keys (UPDATED REAL PUBLISHER & VERIFICATION CODES)
   googleAnalyticsId: "G-XXXXXXXXXX",
-  googleSearchConsoleToken: "-nL85juUcE0o48CM-D_4I4YDGWaBoP1PN6BFCYSphl0",
-  googleSearchConsoleTokenSecondary: "0KMGLLs9N37APBf9DhUn8bNcnmUmewhwRCHE-R7slxk",
-  googleAdSenseAccount: "ca-pub-6751037211810646",
+  googleSearchConsoleToken: "PhqDCraPVcuNOgwktVSw2azc0jZV8jK2I4HSxFUygCE",
+  googleSearchConsoleTokenSecondary: "uBcYkVShNH4xBS6Vhbt-F3dVAKaKWceQNek2H_dFrjs",
   googleAdSensePublisherId: "ca-pub-6751037211810646",
+  googleAdSensePubCode: "pub-6751037211810646",
   
   // Financial & Donation Configs
   minWithdrawal: 500, // in Indian Rupees (₹)

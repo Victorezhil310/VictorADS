@@ -55,30 +55,24 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const gscCode1 = siteConfig.googleSearchConsoleToken; // -nL85juUcE0o48CM-D_4I4YDGWaBoP1PN6BFCYSphl0
-  const gscCode2 = siteConfig.googleSearchConsoleTokenSecondary; // 0KMGLLs9N37APBf9DhUn8bNcnmUmewhwRCHE-R7slxk
-  const adsenseAccount = siteConfig.googleAdSenseAccount; // ca-pub-6751037211810646
   const adsenseId = siteConfig.googleAdSensePublisherId; // ca-pub-6751037211810646
   const gaId = siteConfig.googleAnalyticsId;
-
   const isRealGa = gaId && !gaId.includes("G-XXXXXXXXXX");
 
   return (
     <html lang="en">
       <head>
-        {/* Google AdSense Ownership Account Meta Tag */}
-        <meta name="google-adsense-account" content={adsenseAccount} />
-
-        {/* Google Search Console Verification Meta Tags */}
-        <meta name="google-site-verification" content={gscCode1} />
-        <meta name="google-site-verification" content={gscCode2} />
-        
-        {/* Google AdSense Direct Client Script Tag */}
+        {/* Google AdSense Head Connection Script & Account Tag */}
         <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
           crossOrigin="anonymous"
         />
+        <meta name="google-adsense-account" content={adsenseId} />
+        
+        {/* Google Search Console Meta Verification Tags */}
+        <meta name="google-site-verification" content="PhqDCraPVcuNOgwktVSw2azc0jZV8jK2I4HSxFUygCE" />
+        <meta name="google-site-verification" content="uBcYkVShNH4xBS6Vhbt-F3dVAKaKWceQNek2H_dFrjs" />
       </head>
       <body>
         {/* Google Analytics 4 */}
