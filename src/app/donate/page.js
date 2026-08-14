@@ -164,14 +164,28 @@ export default function Donate() {
           </form>
         </div>
 
-        {/* RIGHT PANEL: DYNAMIC QR CODE FOR ARASU9629HF@GMAIL.COM */}
+        {/* RIGHT PANEL: DYNAMIC QR CODE FOR ARASU9629HF@OKHDFCBANK */}
         <div>
+          <div style={{
+            background: 'rgba(0, 255, 135, 0.08)',
+            border: '1px solid rgba(0, 255, 135, 0.25)',
+            borderRadius: '12px',
+            padding: '12px 16px',
+            marginBottom: '18px',
+            textAlign: 'center'
+          }}>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Verified Direct Platform UPI ID:</p>
+            <h4 style={{ fontSize: '1.05rem', color: 'var(--color-accent)', fontFamily: 'monospace', margin: '4px 0' }}>
+              arasu9629hf@okhdfcbank
+            </h4>
+          </div>
+
           <UpiQrCode amount={selectedAmount} note="VictorADS Platform Donation" />
           
           <div className="glass-card" style={{ marginTop: '20px', padding: '20px' }}>
             <h3 style={{ fontSize: '1rem', marginBottom: '10px', color: 'var(--color-primary)' }}>🔒 Legal & Transparency</h3>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-              Donations are voluntary gifts to maintain cloud server operations, proxy encryption nodes, and tool hosting. They do not constitute investment returns.
+              Donations are voluntary gifts sent directly via UPI to <strong>arasu9629hf@okhdfcbank</strong> to maintain cloud server operations, proxy encryption nodes, and tool hosting. They do not constitute investment returns.
             </p>
           </div>
         </div>

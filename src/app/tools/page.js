@@ -188,6 +188,20 @@ export default function Tools() {
             >
               🔗 Link Analyzer
             </button>
+            <button
+              onClick={() => setActiveTool('snippet')}
+              className="btn"
+              style={{
+                padding: '10px 18px',
+                fontSize: '0.85rem',
+                borderRadius: '8px',
+                background: activeTool === 'snippet' ? 'var(--grad-primary)' : 'rgba(255,255,255,0.04)',
+                color: activeTool === 'snippet' ? '#030712' : 'var(--text-main)',
+                border: activeTool === 'snippet' ? 'none' : '1px solid var(--border-card)'
+              }}
+            >
+              ⚡ Snippet & Analytics
+            </button>
           </div>
         </div>
 
@@ -483,6 +497,157 @@ export default function Tools() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {activeTool === 'snippet' && (
+          <div className="glass-card" style={{ maxWidth: '750px', margin: '0 auto', width: '100%' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+              <div>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '4px' }}>⚡ Snippet Code & Analytics Suite</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                  Copy production-ready integration snippets for UPI Payments, Google Analytics 4, and Google AdSense units.
+                </p>
+              </div>
+              <span className="badge badge-tech">Verified Production Code</span>
+            </div>
+
+            {/* SNIPPET 1: UPI PAYMENT BUTTON SNIPPET */}
+            <div style={{
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid var(--border-card)',
+              borderRadius: '12px',
+              padding: '20px',
+              marginBottom: '20px'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                <h4 style={{ fontSize: '1rem', color: 'var(--color-accent)' }}>💳 UPI Direct Payment Button Snippet</h4>
+                <button
+                  onClick={() => {
+                    const code = `<a href="upi://pay?pa=arasu9629hf@okhdfcbank&pn=VictorADS%20Support&cu=INR" class="upi-pay-btn" style="background:#00F2FE;color:#030712;padding:12px 24px;border-radius:8px;font-weight:bold;text-decoration:none;display:inline-block;">Pay via UPI (arasu9629hf@okhdfcbank)</a>`;
+                    navigator.clipboard.writeText(code);
+                    alert('UPI Button Snippet copied to clipboard!');
+                  }}
+                  className="btn btn-secondary"
+                  style={{ padding: '6px 14px', fontSize: '0.75rem', borderRadius: '6px' }}
+                >
+                  📋 Copy Snippet
+                </button>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '12px' }}>
+                Embed an NPCI-compliant instant UPI payment link for <strong>arasu9629hf@okhdfcbank</strong> on your website.
+              </p>
+              <pre style={{
+                background: '#040814',
+                padding: '14px',
+                borderRadius: '8px',
+                fontSize: '0.8rem',
+                color: '#00F2FE',
+                fontFamily: 'monospace',
+                overflowX: 'auto',
+                border: '1px solid rgba(0, 242, 254, 0.2)'
+              }}>
+{`<a href="upi://pay?pa=arasu9629hf@okhdfcbank&pn=VictorADS%20Support&cu=INR"
+   class="upi-pay-btn" 
+   style="background:#00F2FE;color:#030712;padding:12px 24px;border-radius:8px;font-weight:bold;text-decoration:none;display:inline-block;">
+  ⚡ Pay / Donate via UPI (arasu9629hf@okhdfcbank)
+</a>`}
+              </pre>
+            </div>
+
+            {/* SNIPPET 2: GA4 ANALYTICS TRACKER SNIPPET */}
+            <div style={{
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid var(--border-card)',
+              borderRadius: '12px',
+              padding: '20px',
+              marginBottom: '20px'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                <h4 style={{ fontSize: '1rem', color: 'var(--color-primary)' }}>📊 Google Analytics 4 (GA4) Tag Snippet</h4>
+                <button
+                  onClick={() => {
+                    const code = `<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n  gtag('config', 'G-XXXXXXXXXX');\n</script>`;
+                    navigator.clipboard.writeText(code);
+                    alert('GA4 Snippet copied to clipboard!');
+                  }}
+                  className="btn btn-secondary"
+                  style={{ padding: '6px 14px', fontSize: '0.75rem', borderRadius: '6px' }}
+                >
+                  📋 Copy Snippet
+                </button>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '12px' }}>
+                Place this snippet in the <code>&lt;head&gt;</code> section of your HTML pages to track real-time user metrics.
+              </p>
+              <pre style={{
+                background: '#040814',
+                padding: '14px',
+                borderRadius: '8px',
+                fontSize: '0.8rem',
+                color: '#7000FF',
+                fontFamily: 'monospace',
+                overflowX: 'auto',
+                border: '1px solid rgba(112, 0, 255, 0.2)'
+              }}>
+{`<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>`}
+              </pre>
+            </div>
+
+            {/* SNIPPET 3: ADSENSE AD UNIT SNIPPET */}
+            <div style={{
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid var(--border-card)',
+              borderRadius: '12px',
+              padding: '20px'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                <h4 style={{ fontSize: '1rem', color: 'var(--color-accent)' }}>💰 Google AdSense Responsive Unit Snippet</h4>
+                <button
+                  onClick={() => {
+                    const code = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6751037211810646" crossorigin="anonymous"></script>\n<!-- VictorADS_Responsive_Slot -->\n<ins class="adsbygoogle"\n     style="display:block"\n     data-ad-client="ca-pub-6751037211810646"\n     data-ad-slot="1234567890"\n     data-ad-format="auto"\n     data-full-width-responsive="true"></ins>\n<script>\n     (adsbygoogle = window.adsbygoogle || []).push({});\n</script>`;
+                    navigator.clipboard.writeText(code);
+                    alert('AdSense Snippet copied to clipboard!');
+                  }}
+                  className="btn btn-secondary"
+                  style={{ padding: '6px 14px', fontSize: '0.75rem', borderRadius: '6px' }}
+                >
+                  📋 Copy Snippet
+                </button>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '12px' }}>
+                Embed automated ad monetization slots into your application views.
+              </p>
+              <pre style={{
+                background: '#040814',
+                padding: '14px',
+                borderRadius: '8px',
+                fontSize: '0.8rem',
+                color: '#00FF87',
+                fontFamily: 'monospace',
+                overflowX: 'auto',
+                border: '1px solid rgba(0, 255, 135, 0.2)'
+              }}>
+{`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6751037211810646" crossorigin="anonymous"></script>
+<!-- VictorADS_Responsive_Slot -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6751037211810646"
+     data-ad-slot="1234567890"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>`}
+              </pre>
+            </div>
           </div>
         )}
 

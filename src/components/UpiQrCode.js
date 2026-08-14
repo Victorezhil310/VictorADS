@@ -9,7 +9,7 @@ export default function UpiQrCode({ amount = 100, note = 'VictorADS Platform Sup
   const [showRawUpi, setShowRawUpi] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const targetUpi = siteConfig.donationUpiId; // arasu9629hf@gmail.com
+  const targetUpi = siteConfig.donationUpiId; // arasu9629hf@okhdfcbank
   const targetName = siteConfig.donationUpiName;
 
   useEffect(() => {
@@ -92,53 +92,40 @@ export default function UpiQrCode({ amount = 100, note = 'VictorADS Platform Sup
         </p>
       )}
 
-      {/* UPI ID HIDDEN BY DEFAULT (ONLY SHOWN IF USER TOGGLES) */}
-      <div style={{ width: '100%', marginTop: '5px' }}>
-        {showRawUpi ? (
-          <div style={{
-            background: 'rgba(255,255,255,0.05)',
-            padding: '10px',
-            borderRadius: '8px',
-            fontSize: '0.85rem',
-            fontFamily: 'monospace',
-            color: 'var(--color-primary)',
-            wordBreak: 'break-all'
-          }}>
+      {/* PROMINENT COPYABLE UPI ID */}
+      <div style={{
+        width: '100%',
+        marginTop: '8px',
+        padding: '10px 14px',
+        background: 'rgba(0, 242, 254, 0.06)',
+        border: '1px solid rgba(0, 242, 254, 0.25)',
+        borderRadius: '10px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '8px'
+      }}>
+        <div style={{ textAlign: 'left', overflow: 'hidden' }}>
+          <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Official UPI VPA</p>
+          <p style={{ fontSize: '0.9rem', fontFamily: 'monospace', fontWeight: 'bold', color: 'var(--color-accent)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {targetUpi}
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(targetUpi);
-                alert('UPI ID copied to clipboard!');
-              }}
-              style={{
-                marginLeft: '8px',
-                padding: '3px 8px',
-                fontSize: '0.75rem',
-                borderRadius: '4px',
-                background: 'rgba(0, 242, 254, 0.2)',
-                border: 'none',
-                color: '#fff',
-                cursor: 'pointer'
-              }}
-            >
-              Copy
-            </button>
-          </div>
-        ) : (
-          <button
-            onClick={() => setShowRawUpi(true)}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--text-muted)',
-              fontSize: '0.75rem',
-              cursor: 'pointer',
-              textDecoration: 'underline'
-            }}
-          >
-            Show raw UPI ID text
-          </button>
-        )}
+          </p>
+        </div>
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(targetUpi);
+            alert(`UPI ID ${targetUpi} copied to clipboard!`);
+          }}
+          className="btn btn-primary"
+          style={{
+            padding: '6px 12px',
+            fontSize: '0.75rem',
+            borderRadius: '6px',
+            flexShrink: 0
+          }}
+        >
+          📋 Copy
+        </button>
       </div>
     </div>
   );
