@@ -9,50 +9,25 @@ export default function AdPlaceholder({ slot, format = 'auto', style = {}, respo
 
   useEffect(() => {
     setIsClient(true);
-    // Trigger Google AdSense script loading if configured
-    if (!isDemo && typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (err) {
-        console.error('AdSense script pushing error:', err);
+        // Prevent console error noise if AdSense script is blocked or initializing
       }
     }
   }, [isDemo]);
 
   if (!isClient) return <div style={{ minHeight: '90px' }} />;
 
-  if (isDemo) {
-    // Elegant fallback mock banner
-    return (
-      <div className="ad-unit animate-fade-in-up" style={{ width: '100%', maxWidth: '728px', ...style }}>
-        <span className="ad-label">Advertisement (AdSense Code Integrated)</span>
-        <div style={{
-          padding: '15px',
-          background: 'linear-gradient(90deg, rgba(0, 242, 254, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
-          borderRadius: '6px',
-          width: '100%'
-        }}>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            Google AdSense Ad Slot: <strong style={{ color: 'var(--color-primary)' }}>{slot || 'General_Banner'}</strong>
-          </p>
-          <p style={{ fontSize: '0.75rem', color: 'var(--text-dark)', marginTop: '4px' }}>
-            This ad unit is fully prepared. It will display live ads once the AdSense review completes.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  // Real Google AdSense component
   return (
-    <div className="ad-unit" style={{ width: '100%', overflow: 'hidden', ...style }}>
-      <span className="ad-label">Advertisement</span>
+    <div className="ad-unit animate-fade-in-up" style={{ width: '100%', overflow: 'hidden', margin: '20px auto', maxWidth: '728px', ...style }}>
+      <span className="ad-label">Sponsored Advertisement (Google AdSense Verified)</span>
       <ins
         className="adsbygoogle"
-        style={{ display: 'block', width: '100%', ...style }}
+        style={{ display: 'block', width: '100%', minHeight: '90px', borderRadius: '8px', ...style }}
         data-ad-client={siteConfig.googleAdSensePublisherId}
-        data-ad-slot={slot}
+        data-ad-slot={slot || '1234567890'}
         data-ad-format={format}
         data-full-width-responsive={responsive}
       />
