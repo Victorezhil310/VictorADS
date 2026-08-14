@@ -41,7 +41,7 @@ export default function Home() {
           alignItems: 'center',
           gap: '24px'
         }}>
-          <span className="badge badge-tech">🚀 The Sharing Economy of 2026</span>
+          <span className="badge badge-tech">🚀 Watch Ads, Earn Coins & Redeem Rewards</span>
           
           <h1 style={{
             fontSize: '3.5rem',
@@ -52,7 +52,7 @@ export default function Home() {
             WebkitTextFillColor: 'transparent',
             letterSpacing: '-0.03em'
           }}>
-            Turn Your Idle Internet & Screen Views Into Real Money
+            Watch Ads, Earn Coins & Redeem Play Store, Amazon & Flipkart Vouchers
           </h1>
 
           <p style={{
@@ -61,21 +61,26 @@ export default function Home() {
             lineHeight: '1.6',
             maxWidth: '650px'
           }}>
-            VictorADS is a premium platform allowing you to monetize excess bandwidth and view ads. Secure, legal, and instant withdrawals via UPI or Direct Bank.
+            VictorADS lets you watch sponsor ads and monetize idle bandwidth. Earn coins and redeem them instantly for <strong>Google Play Redeem Codes</strong>, <strong>Amazon Pay Vouchers</strong>, <strong>Flipkart Gift Cards</strong>, or <strong>Direct UPI Cash</strong> (`arasu9629hf@okhdfcbank`).
           </p>
 
           <div style={{ display: 'flex', gap: '15px', marginTop: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
             {user ? (
-              <Link href="/dashboard" className="btn btn-primary">
-                Enter Dashboard
-              </Link>
+              <>
+                <Link href="/dashboard" className="btn btn-primary">
+                  📺 Watch Ads & Earn Coins
+                </Link>
+                <Link href="/withdraw" className="btn btn-accent pulse-glow">
+                  🎁 Redeem Gift Cards & Cash
+                </Link>
+              </>
             ) : (
               <>
                 <Link href="/register" className="btn btn-primary">
-                  Start Monetizing Now
+                  Start Watching Ads & Earning Coins
                 </Link>
-                <Link href="/articles" className="btn btn-secondary">
-                  Read Tech Guide
+                <Link href="/withdraw" className="btn btn-secondary">
+                  View Gift Cards Store
                 </Link>
               </>
             )}

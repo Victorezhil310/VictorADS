@@ -46,6 +46,9 @@ export default function Header() {
         <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
           Home
         </Link>
+        <Link href="/withdraw" className={`nav-link ${pathname === '/withdraw' ? 'active' : ''}`}>
+          🎁 Rewards & Redeem
+        </Link>
         <Link href="/articles" className={`nav-link ${pathname.startsWith('/articles') ? 'active' : ''}`}>
           Articles
         </Link>

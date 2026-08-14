@@ -170,12 +170,12 @@ export default function Dashboard() {
           gap: '20px'
         }}>
           <div className="glass-card" style={{ padding: '20px', borderRadius: '12px' }}>
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Wallet Balance</p>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Coin Rewards Balance</p>
             <h2 style={{ fontSize: '2rem', color: 'var(--color-accent)', marginTop: '5px' }}>
-              ₹{user.balance.toFixed(2)}
+              🪙 {(user.coins || Math.round(user.balance * 100)).toLocaleString()} <span style={{ fontSize: '0.9rem', color: '#fff' }}>Coins</span>
             </h2>
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-dark)', marginTop: '5px' }}>
-              Min. withdraw threshold: ₹{siteConfig.minWithdrawal}
+            <p style={{ fontSize: '0.8rem', color: 'var(--color-primary)', marginTop: '4px', fontWeight: 'bold' }}>
+              = ₹{user.balance.toFixed(2)} INR Cash
             </p>
           </div>
 
@@ -185,7 +185,7 @@ export default function Dashboard() {
               {user.adsWatched}
             </h2>
             <p style={{ fontSize: '0.75rem', color: 'var(--text-dark)', marginTop: '5px' }}>
-              Reward: ₹{siteConfig.adRewardAmount.toFixed(2)} per ad
+              Reward: +250 Coins (₹{siteConfig.adRewardAmount.toFixed(2)}) per ad
             </p>
           </div>
 
@@ -195,18 +195,41 @@ export default function Dashboard() {
               {sharedMB} MB
             </h2>
             <p style={{ fontSize: '0.75rem', color: 'var(--text-dark)', marginTop: '5px' }}>
-              Rate: ₹{siteConfig.dataRewardPerMB.toFixed(2)} per MB
+              Rate: +10 Coins (₹{siteConfig.dataRewardPerMB.toFixed(2)}) per MB
             </p>
           </div>
+        </div>
+
+        {/* REWARDS QUICK REDEEM BANNER */}
+        <div style={{
+          background: 'linear-gradient(90deg, rgba(0, 242, 254, 0.1) 0%, rgba(240, 147, 251, 0.1) 100%)',
+          border: '1px solid rgba(0, 242, 254, 0.25)',
+          borderRadius: '12px',
+          padding: '18px 24px',
+          display: 'flex',
+          justify: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '15px'
+        }}>
+          <div>
+            <h3 style={{ fontSize: '1.1rem', color: '#fff' }}>🎁 Redeem Your Coins for Gift Cards & Vouchers!</h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+              Convert your coins to <strong>Google Play Store Codes</strong>, <strong>Amazon Pay Vouchers</strong>, <strong>Flipkart Cards</strong>, or <strong>UPI Cash</strong>.
+            </p>
+          </div>
+          <a href="/withdraw" className="btn btn-accent pulse-glow" style={{ borderRadius: '8px', padding: '10px 20px', fontSize: '0.85rem' }}>
+            Open Rewards Store 🛍️
+          </a>
         </div>
 
         {/* INTERACTIVE MONETIZATION PANEL */}
         {activeTab === 'watch' ? (
           <div className="glass-card" style={{ textAlign: 'center', padding: '50px 30px' }}>
             <span style={{ fontSize: '3rem' }}>📺</span>
-            <h2 style={{ fontSize: '1.75rem', marginTop: '15px' }}>Watch Ads and Earn Cash</h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', margin: '10px auto 30px', maxWidth: '500px' }}>
-              Click the play button below to launch a sponsor ad. Watch it completely for 15 seconds to receive ₹{siteConfig.adRewardAmount.toFixed(2)} instantly in your wallet.
+            <h2 style={{ fontSize: '1.75rem', marginTop: '15px' }}>Watch Ads, Earn Coins & Get Play Store / Amazon Vouchers</h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', margin: '10px auto 30px', maxWidth: '540px' }}>
+              Click play to launch a sponsor ad. Watch for 15 seconds to receive <strong>+250 Coins (₹2.50)</strong> instantly! Convert coins to Google Play, Amazon, Flipkart gift cards, or UPI cash anytime.
             </p>
             <button onClick={handleStartAd} className="btn btn-primary pulse-glow" style={{ padding: '14px 40px', borderRadius: '30px' }}>
               Play Sponsor Ad (+₹2.50)

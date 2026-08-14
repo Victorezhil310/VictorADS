@@ -79,10 +79,16 @@ export const mockDB = {
     
     const users = getStorage('vads_users', []);
     const user = users.find(u => u.id === currentUserId);
-    return user || null;
+    if (!user) return null;
+
+    // Ensure coins property exists (100 coins = ₹1.00)
+    if (typeof user.coins === 'undefined') {
+      user.coins = Math.round(user.balance * 100);
+    }
+    return user;
   },
   
-  // Credit balance
+  // Credit balance & coins
   creditUser(amount, type, description) {
     if (IS_SERVER) return null;
     const currentUserId = getStorage('vads_current_user', null);
@@ -92,7 +98,11 @@ export const mockDB = {
     const userIdx = users.findIndex(u => u.id === currentUserId);
     if (userIdx === -1) return null;
     
-    users[userIdx].balance = parseFloat((users[userIdx].balance + amount).toFixed(2));
+    const addedBalance = parseFloat(amount.toFixed(2));
+    const addedCoins = Math.round(addedBalance * 100);
+
+    users[userIdx].balance = parseFloat((users[userIdx].balance + addedBalance).toFixed(2));
+    users[userIdx].coins = (users[userIdx].coins || 0) + addedCoins;
     
     if (type === 'ad') {
       users[userIdx].adsWatched += 1;
@@ -106,14 +116,98 @@ export const mockDB = {
     ledger.unshift({
       id: 'tx_' + Math.random().toString(36).substr(2, 9),
       date: new Date().toLocaleString(),
-      type: type === 'ad' ? 'Ad Reward' : 'Bandwidth Earning',
-      description: description || `Credited ₹${amount}`,
-      amount: amount,
+      type: type === 'ad' ? 'Ad Watch Reward' : 'Bandwidth Earning',
+      description: description || `Earned +${addedCoins} Coins (₹${addedBalance})`,
+      amount: addedBalance,
+      coins: addedCoins,
       status: 'Completed',
     });
     setStorage('vads_ledger_' + currentUserId, ledger);
     
     return users[userIdx];
+  },
+
+  // Redeem Coins for PlayStore / Amazon / Flipkart Gift Vouchers / Cash
+  redeemVoucher(voucherType, rupeeAmount, coinCost, targetDetails = '') {
+    if (IS_SERVER) return { success: false, message: "Server error" };
+    const currentUserId = getStorage('vads_current_user', null);
+    if (!currentUserId) return { success: false, message: "Not logged in" };
+
+    const users = getStorage('vads_users', []);
+    const userIdx = users.findIndex(u => u.id === currentUserId);
+    if (userIdx === -1) return { success: false, message: "User profile not found." };
+
+    const user = users[userIdx];
+    const userCoins = user.coins || Math.round(user.balance * 100);
+
+    if (userCoins < coinCost || user.balance < rupeeAmount) {
+      return { success: false, message: `Insufficient Coins! You need ${coinCost.toLocaleString()} Coins (₹${rupeeAmount}) to redeem this voucher.` };
+    }
+
+    // Deduct coins & balance
+    user.balance = parseFloat((user.balance - rupeeAmount).toFixed(2));
+    user.coins = userCoins - coinCost;
+    users[userIdx] = user;
+    setStorage('vads_users', users);
+
+    // Generate unique redeem voucher code based on type
+    const randomCode = Math.random().toString(36).substr(2, 4).toUpperCase() + '-' +
+                       Math.random().toString(36).substr(2, 4).toUpperCase() + '-' +
+                       Math.random().toString(36).substr(2, 4).toUpperCase() + '-' +
+                       Math.floor(1000 + Math.random() * 9000);
+
+    let voucherTitle = 'Google Play Redeem Code';
+    let codePrefix = 'GP';
+    if (voucherType === 'amazon') {
+      voucherTitle = 'Amazon Pay Gift Voucher';
+      codePrefix = 'AMZ';
+    } else if (voucherType === 'flipkart') {
+      voucherTitle = 'Flipkart Gift Card';
+      codePrefix = 'FLIP';
+    } else if (voucherType === 'upi') {
+      voucherTitle = 'Instant UPI Cash Transfer';
+      codePrefix = 'UPI';
+    }
+
+    const fullVoucherCode = `${codePrefix}-${randomCode}`;
+
+    // Add to user vouchers
+    const vouchers = getStorage('vads_vouchers_' + currentUserId, []);
+    const newVoucher = {
+      id: 'vouch_' + Math.random().toString(36).substr(2, 9),
+      type: voucherType,
+      title: voucherTitle,
+      rupeeAmount: rupeeAmount,
+      coinCost: coinCost,
+      code: fullVoucherCode,
+      targetDetails: targetDetails,
+      date: new Date().toLocaleString(),
+      status: 'Active / Redeemed'
+    };
+    vouchers.unshift(newVoucher);
+    setStorage('vads_vouchers_' + currentUserId, vouchers);
+
+    // Add to transactions ledger
+    const ledger = getStorage('vads_ledger_' + currentUserId, []);
+    ledger.unshift({
+      id: 'tx_' + Math.random().toString(36).substr(2, 9),
+      date: new Date().toLocaleString(),
+      type: `${voucherTitle} Redemption`,
+      description: `Redeemed ${coinCost.toLocaleString()} Coins for ₹${rupeeAmount} ${voucherTitle} (Code: ${fullVoucherCode})`,
+      amount: -rupeeAmount,
+      coins: -coinCost,
+      status: 'Completed',
+    });
+    setStorage('vads_ledger_' + currentUserId, ledger);
+
+    return { success: true, voucher: newVoucher, updatedUser: user };
+  },
+
+  getVouchers() {
+    if (IS_SERVER) return [];
+    const currentUserId = getStorage('vads_current_user', null);
+    if (!currentUserId) return [];
+    return getStorage('vads_vouchers_' + currentUserId, []);
   },
   
   // Data Marketplace: Sell / Buy Data
