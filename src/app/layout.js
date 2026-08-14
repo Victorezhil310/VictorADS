@@ -73,6 +73,21 @@ export default function RootLayout({ children }) {
         {/* Google Search Console Meta Verification Tags */}
         <meta name="google-site-verification" content="PhqDCraPVcuNOgwktVSw2azc0jZV8jK2I4HSxFUygCE" />
         <meta name="google-site-verification" content="uBcYkVShNH4xBS6Vhbt-F3dVAKaKWceQNek2H_dFrjs" />
+
+        {/* Ad Network AutoTag Integration (aclib) */}
+        <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" />
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof aclib !== 'undefined') {
+                aclib.runAutoTag({
+                  zoneId: 'zsahbecst9',
+                });
+              }
+            `,
+          }}
+        />
       </head>
       <body>
         {/* Google Analytics 4 */}
