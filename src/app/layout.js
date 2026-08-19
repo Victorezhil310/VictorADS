@@ -80,10 +80,21 @@ export default function RootLayout({ children }) {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `
-              if (typeof aclib !== 'undefined') {
-                aclib.runAutoTag({
-                  zoneId: 'zsahbecst9',
-                });
+              try {
+                var currentUserId = localStorage.getItem('vads_current_user');
+                var users = JSON.parse(localStorage.getItem('vads_users') || '[]');
+                var currentUser = users.find(function(u){ return u.id === JSON.parse(currentUserId); });
+                var isVipUser = currentUser && currentUser.subscriptionPlan && currentUser.subscriptionPlan !== 'Free Tier';
+                
+                if (!isVipUser && typeof aclib !== 'undefined') {
+                  aclib.runAutoTag({
+                    zoneId: 'zsahbecst9',
+                  });
+                }
+              } catch(e) {
+                if (typeof aclib !== 'undefined') {
+                  aclib.runAutoTag({ zoneId: 'zsahbecst9' });
+                }
               }
             `,
           }}

@@ -58,6 +58,9 @@ export default function Header() {
         <Link href="/donate" className={`nav-link ${pathname === '/donate' ? 'active' : ''}`}>
           ❤️ Donate
         </Link>
+        <Link href="/publisher" className={`nav-link ${pathname === '/publisher' ? 'active' : ''}`}>
+          🌐 AdCash Publisher
+        </Link>
         <Link href="/about" className={`nav-link ${pathname === '/about' ? 'active' : ''}`}>
           About
         </Link>

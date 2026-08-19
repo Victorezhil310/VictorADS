@@ -18,6 +18,7 @@ export default async function sitemap() {
     '/withdraw',
     '/marketplace',
     '/tools',
+    '/publisher',
     '/dashboard',
     '/login',
     '/register',

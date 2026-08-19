@@ -1,0 +1,9 @@
+# ==============================================================================
+# PUBLIC APP-ADS.TXT FILE (Authorized Digital Sellers for Mobile Applications)
+# Reference: IAB Tech Lab App-Ads.txt Specification v1.1
+# Developers must register website domain in App Store / Google Play Console developer listings.
+# ==============================================================================
+# Replace 'TODO: ADD REAL ADMOB PUBLISHER ID' with your legitimate Google AdMob Publisher ID
+# Example format: google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+google.com, TODO: ADD REAL ADMOB PUBLISHER ID, DIRECT, f08c47fec0942fa0

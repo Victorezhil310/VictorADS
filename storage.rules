@@ -1,0 +1,99 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Default-deny principle: Block all unhandled access by default
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/(jpeg|png|webp|gif|svg\\+xml)');
+    }
+
+    function isDocument() {
+      return request.resource.contentType.matches('application/(pdf|msword|vnd.openxmlformats-officedocument.wordprocessingml.document|txt)');
+    }
+
+    function isMedia() {
+      return request.resource.contentType.matches('(image|video|audio)/.*');
+    }
+
+    // File size constraints
+    function isValidAvatarSize() {
+      return request.resource.size <= 5 * 1024 * 1024; // 5 MB max
+    }
+
+    function isValidDocSize() {
+      return request.resource.size <= 10 * 1024 * 1024; // 10 MB max
+    }
+
+    function isValidMediaSize() {
+      return request.resource.size <= 50 * 1024 * 1024; // 50 MB max
+    }
+
+    // Reject executable and script extensions
+    function isSafeFileName(fileName) {
+      return !fileName.matches('.*\\.(exe|bat|cmd|sh|php|pl|py|js|jsx|ts|tsx|env|pem|key|json)$');
+    }
+
+    // 1. Avatars Folder: Users can access and update only their own avatars
+    match /avatars/{userId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId) 
+        && isImage() 
+        && isValidAvatarSize() 
+        && isSafeFileName(fileName);
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+
+    // 2. User Private Uploads Folder: Strictly owner-isolated
+    match /user_uploads/{userId}/{fileName} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if isOwner(userId) 
+        && (isImage() || isDocument()) 
+        && isValidDocSize() 
+        && isSafeFileName(fileName);
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+
+    // 3. User Private Documents Folder: Strictly owner-isolated
+    match /documents/{userId}/{fileName} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if isOwner(userId) 
+        && isDocument() 
+        && isValidDocSize() 
+        && isSafeFileName(fileName);
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+
+    // 4. Media Folder: User media files
+    match /media/{userId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId) 
+        && isMedia() 
+        && isValidMediaSize() 
+        && isSafeFileName(fileName);
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+
+    // 5. Public Storage Folder: Publicly readable, upload restricted to Admin
+    match /public/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidDocSize() && isSafeFileName(fileName);
+    }
+  }
+}

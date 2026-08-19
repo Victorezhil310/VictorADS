@@ -1,16 +1,14 @@
-User-agent: *
-Allow: /
-Allow: /articles
-Allow: /about
-Allow: /contact
-Allow: /privacy
-Allow: /terms
-Allow: /cookies
-Allow: /disclaimer
-Disallow: /dashboard
-Disallow: /withdraw
-Disallow: /tools
-Disallow: /login
-Disallow: /register
+# ==============================================================================
+# ROBOTS.TXT DISALLOW RULES FOR PRIVATE & SENSITIVE ROUTES
+# ==============================================================================
 
-Sitemap: https://victor-ads.vercel.app/sitemap.xml
+User-agent: *
+Disallow: /admin
+Disallow: /admin/
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /account
+Disallow: /api/
+Disallow: /internal
+
+Sitemap: https://example.com/sitemap.xml

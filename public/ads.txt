@@ -1,1 +1,9 @@
-google.com, pub-6751037211810646, DIRECT, f08c47fec0942fa0
+# ==============================================================================
+# PUBLIC ADS.TXT FILE (Authorized Digital Sellers)
+# Reference: IAB Tech Lab Ads.txt Specification v1.1
+# WARNING: NEVER PLACE API SECRETS, PASSWORDS, OR PRIVATE KEYS IN ADS.TXT
+# ==============================================================================
+# Replace 'TODO: ADD REAL PUBLISHER ID' with your legitimate Google AdSense / Ad Exchange Publisher ID
+# Example format: google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+google.com, TODO: ADD REAL PUBLISHER ID, DIRECT, f08c47fec0942fa0

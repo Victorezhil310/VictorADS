@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default-deny principle: Block all unhandled access by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions for security validation
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.admin == true || request.auth.token.role == 'ADMIN' || request.auth.token.role == 'OWNER');
+    }
+
+    // Checks that restricted financial and administrative fields are NOT modified by the client
+    function preservesRestrictedFields() {
+      let affectedKeys = request.resource.data.diff(resource.data).affectedKeys();
+      return !affectedKeys.hasAny([
+        'revenue',
+        'adminRole',
+        'paymentStatus',
+        'subscriptionStatus',
+        'adRevenue',
+        'ownerBalance',
+        'withdrawalApproval',
+        'auditLogs',
+        'role',
+        'isSubscribed',
+        'planTier'
+      ]);
+    }
+
+    // =========================================================================
+    // USERS COLLECTION
+    // =========================================================================
+    match /users/{userId} {
+      // Authenticated users can read their own profile
+      allow read: if isOwner(userId) || isAdmin();
+
+      // Users can create their initial profile but cannot set admin/financial state
+      allow create: if isOwner(userId) && 
+        !request.resource.data.keys().hasAny([
+          'revenue', 'adminRole', 'paymentStatus', 'subscriptionStatus', 
+          'adRevenue', 'ownerBalance', 'withdrawalApproval', 'auditLogs', 'role'
+        ]);
+
+      // Users can update only non-restricted profile fields
+      allow update: if isOwner(userId) && preservesRestrictedFields();
+
+      // Deletion allowed only via authenticated cloud function or admin
+      allow delete: if isAdmin();
+    }
+
+    // =========================================================================
+    // SUBSCRIPTIONS & PAYMENTS (Read-only for owner, write-only via Cloud Functions/Admin)
+    // =========================================================================
+    match /subscriptions/{subId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid || isAdmin();
+      allow write: if isAdmin(); // Client writes strictly forbidden
+    }
+
+    match /payments/{paymentId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid || isAdmin();
+      allow write: if isAdmin(); // Server-side webhook verified write only
+    }
+
+    // =========================================================================
+    // AUDIT LOGS & SECURITY EVENTS (Read/Write strictly restricted to Admin/Server)
+    // =========================================================================
+    match /auditLogs/{logId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /securityEvents/{eventId} {
+      allow read, write: if isAdmin();
+    }
+
+    // =========================================================================
+    // PUBLIC CONTENT (Read-only public, Admin write)
+    // =========================================================================
+    match /publicContent/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}
